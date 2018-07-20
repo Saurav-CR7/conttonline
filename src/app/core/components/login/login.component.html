@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">
+        <div class="loginPanel col-xl-4 col-lg-5 col-md-7 col-sm-10">
+            <div class="mt-60 text-center">
+                <div (click)="loginWithGoogle()" class="btn btn-social btn-google btnShadow col-8">
+                    <span class="fab fa-google"></span>
+                    <span>Login with Google</span>
+                </div>
+
+                <div (click)="loginWithFB()" class="btn btn-social btn-facebook btnShadow col-8 mt-2">
+                    <span class="fab fa-facebook-f"></span>
+                    <span>Login with Facebook</span>
+                </div>
+            </div>
+            <h5><span>or</span></h5>
+
+            <div *ngIf="!reset; else resetPassword">
+                <div *ngIf="loginFlag; else SignUp">
+
+                    <div class="form-title">Sign In</div>
+                    <form #loginForm="ngForm">
+                        <div class="form-group col-10" style="margin: auto;">
+                            <input #userEmail="ngModel" [(ngModel)]="email" name="email" type="text" id="email" class="form-control" placeholder="Email" required/>
+                        </div>
+                        <div class="form-group col-10" style="margin: auto; margin-top: 5px;">
+                            <input #userPassword="ngModel" [(ngModel)]="password" name="password" type="password" id="password" class="form-control" placeholder="Password" required/>
+                        </div>
+                        <div class="form-group col-10" style="margin: auto; margin-top: 5px;">
+                            <button [disabled]="!loginForm.valid" (click)="signInWithEmail()" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                    </form>
+
+
+                    <div class="loginFooter" style="margin-top: 20px;">
+                        <span>Forgot Password?</span>
+                        <span class="clickable" (click)="reset=true;">Reset Password</span>
+                    </div>
+
+                    <div class="loginFooter" style="margin-top: 5px;">
+                        <span>New Here? </span>
+                        <span class="clickable" (click)="loginFlag=false;">Create an Account</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<ng-template #SignUp>
+    <div class="form-title">Sign Up</div>
+    <form #signupForm="ngForm">
+        <div class="form-group col-10" style="margin: auto;">
+            <input #userEmail="ngModel" [(ngModel)]="email" name="email" type="text" id="email" class="form-control" placeholder="Email" required/>
+        </div>
+        <div class="form-group col-10" style="margin: auto; margin-top: 5px;">
+            <input #userPassword="ngModel" [(ngModel)]="password" name="password" type="password" id="password" class="form-control" placeholder="Password" required/>
+        </div>
+        <div class="form-group col-10" style="margin: auto; margin-top: 5px;">
+            <button [disabled]="!signupForm.valid" (click)="signUpWithEmail()" class="btn btn-primary btn-block">Sign Up</button>
+        </div>
+    </form>
+
+    <div class="loginFooter" style="margin-top: 20px;">
+        <span>Already have an account? </span>
+        <span class="clickable" (click)="loginFlag=true;">Sign In here</span>
+    </div>
+</ng-template>
+
+<ng-template #resetPassword>
+    <div class="form-title">Reset Password</div>
+    <form #resetForm="ngForm">
+        <div class="form-group col-10" style="margin: auto;">
+            <input #resetEmail="ngModel" [(ngModel)]="email" name="email" type="text" id="email" class="form-control" placeholder="Email" required/>
+        </div>
+        <div class="form-group col-10" style="margin: auto; margin-top: 5px;">
+            <button [disabled]="!resetForm.valid" (click)="resetPass()" class="btn btn-primary btn-block">Reset</button>
+        </div>
+    </form>
+
+    <div class="alert alert-success alert-dismissible font-italic mt-2" *ngIf="resetSent">Link to reset password has been sent. Check your email.</div>
+    <div class="loginFooter" style="margin-top: 20px;">
+        <span class="clickable" (click)="reset=false;">Back to Sign In</span>
+    </div>
+</ng-template>
