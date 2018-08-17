@@ -11,13 +11,13 @@ import { ShoppingCart } from 'shared/models/shoppingCart';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
 
   products;
   filteredProducts: Product[] = [];
-  category: string;
+  subCategory: string;
   cart$: Observable<ShoppingCart>;
 
   constructor(
@@ -37,14 +37,14 @@ export class ProductsComponent implements OnInit {
       return this.route.queryParamMap;
     })
       .subscribe(params => {
-        this.category = params.get('category');
+        this.subCategory = params.get('subCategory');
         this.applyFilter();
       });
   }
 
   private applyFilter() {
-    this.filteredProducts = (this.category) ?
-    this.products.filter(p => p.category === this.category) :
+    this.filteredProducts = (this.subCategory) ?
+    this.products.filter(p => p.subCategory === this.subCategory) :
     this.products;
   }
 

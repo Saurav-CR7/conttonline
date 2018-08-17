@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'shared/services/auth-guard.service';
 
@@ -22,6 +20,7 @@ const shoppingRoutes: Routes = [
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard] }
 ];
+
 
 @NgModule({
   imports: [

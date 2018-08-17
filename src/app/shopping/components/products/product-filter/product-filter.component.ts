@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 export class ProductFilterComponent {
 
   categories$;
-  @Input('category') category;
+  @Input('forValue') forValue;
 
   constructor(categoryService: CategoryService) {
     this.categories$ = categoryService.getAll();

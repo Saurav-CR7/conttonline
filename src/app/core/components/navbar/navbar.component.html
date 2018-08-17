@@ -1,40 +1,131 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+<!-- Navbar for big screens -->
+
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top hide-items">
+
     <div class="container">
-        <a class="navbar-brand" routerLink="/">Cotton Line</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand" routerLink="/"><img class="logo" src="../../../../assets/WebLogo.png" alt="CottonLine"></a>
 
-        <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/cart">
-                        <span class="fas fa-shopping-cart"></span><span> Cart</span>
-                        <span class="badge badge-warning badge-pill" *ngIf="cart$ | async as cart">{{ cart.totalItemsCount }}</span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav">
-                <ng-template #anonymousUser>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/login">Login</a>
-                    </li>
-                </ng-template>
-
-                <li *ngIf="appUser; else anonymousUser" ngbDropdown class="nav-item dropdown">
-                    <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ appUser.name }}</a>
-                    <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" routerLink="/my-orders">My Orders</a>
-                        <ng-container *ngIf="appUser.isAdmin">
-                            <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
-                            <a class="dropdown-item" routerLink="/admin/product">Manage Products</a>
-                        </ng-container>
-                        <a class="dropdown-item" (click)="logout()">Log Out</a>
+        <ul class="navbar-nav mr-auto font-weight-bold">
+            <li class="nav-item dropdown position-static" *ngIf="men">
+                <a class="nav-link">Men</a>
+                <div class="dropdown-menu" style="width: 50%; margin-left: 20%">
+                    <div class="row">
+                        <div class="col-md-3" *ngFor="let key of objectKeys(men)">
+                            <h5 class="dropdown-header">{{ men[key].name }}</h5>
+                            <a *ngFor="let subKey of objectKeys(men[key].subCategories)" class="dropdown-item" routerLink="/" [queryParams]="{ subCategory: subKey }">{{ men[key].subCategories[subKey].name }}</a>
+                        </div>
                     </div>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown position-static" *ngIf="women">
+                <a class="nav-link">Women</a>
+                <div class="dropdown-menu" style="width: 40%; margin-left: 20%">
+                    <div class="row">
+                        <div class="col-md-6" *ngFor="let key of objectKeys(women)">
+                            <h5 class="dropdown-header">{{ women[key].name }}</h5>
+                            <a *ngFor="let subKey of objectKeys(women[key].subCategories)" class="dropdown-item" routerLink="/" [queryParams]="{ subCategory: subKey }">{{ women[key].subCategories[subKey].name }}</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+        <ul class="navbar-nav ml-auto">
+            <li>
+                <div class="input-group">
+                    <input type="text" class="form-control searchBox" [(ngModel)]="searchString" placeholder="Search...">
+                    <div class="input-group-append">
+                        <button class="searchBtn"><i class="fa fa-search" style="color: #888888"></i></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+        <ng-template #anonymousUser>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link mid-icon" routerLink="/login">Login</a>
                 </li>
             </ul>
-        </div>
-    </div>
+        </ng-template>
 
+        <ul class="navbar-nav" *ngIf="appUser; else anonymousUser">
+            <li ngbDropdown class="nav-item dropdown" id="userDropdown">
+                <a ngbDropdownToggle class="nav-link dropdown-toggle mid-icon" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                    <span class="hide-for-big">{{ appUser.name }}</span>
+                </a>
+                <div ngbDropdownMenu class="dropdown-menu">
+                    <a class="dropdown-item font-weight-bold">{{ appUser.name }}</a>
+                    <a class="dropdown-item small">{{ appUser.email }}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" routerLink="/my-orders">My Orders</a>
+                    <a class="dropdown-item">Wishlist</a>
+                    <div class="dropdown-divider"></div>
+                    <ng-container *ngIf="appUser.isAdmin">
+                        <a class="dropdown-item" routerLink="/admin/orders">Manage Orders</a>
+                        <a class="dropdown-item" routerLink="/admin/product">Manage Products</a>
+                        <a class="dropdown-item" routerLink="/admin/product">Manage Category</a>
+                    </ng-container>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item">My Account</a>
+                    <a class="dropdown-item" (click)="logout()">Log Out</a>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/cart">
+                    <span class="fas fa-shopping-cart"></span>
+                    <span>Cart</span>
+                    <span class="badge badge-warning badge-pill" *ngIf="cart$ | async as cart">{{ cart.totalItemsCount }}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </nav>
+
+<!-- Navbar for mobile screen -->
+
+<nav class="navbar navbar-light bg-light fixed-top hide-for-big">
+    <a class="" routerLink="/">
+        <img class="logo" src="../../../../assets/WebLogo.png" alt="CottonLine">
+    </a>
+
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item mr-2 mb-2">
+            <a class="nav-link" routerLink="/cart">
+                <span class="fas fa-shopping-cart"></span>
+                <span class="badge badge-warning badge-pill" *ngIf="cart$ | async as cart">{{ cart.totalItemsCount }}</span>
+            </a>
+        </li>
+    </ul>
+
+    <ng-template #anonymousUser>
+        <ul class="navbar-nav">
+            <li class="nav-item mb-2 ml-2">
+                <a class="nav-link mid-icon" routerLink="/login">Login</a>
+            </li>
+        </ul>
+    </ng-template>
+
+    <ul class="navbar-nav" *ngIf="appUser; else anonymousUser">
+        <li class="nav-item mb-2">
+            <a class="nav-link" routerLink="/">
+                <i class="fas fa-user"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+
+<div *ngFor="let product of products" style="padding-left: 30px;">
+    <h5>{{ product.title }}</h5>
+</div>

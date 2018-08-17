@@ -62,7 +62,7 @@ export class ShoppingCartService {
       } else {
         item$.update({
           title: product.title,
-          imageUrl: product.imageUrl,
+          coverUrl: product.coverUrl,
           price: product.price,
           quantity: quantity
         });
