@@ -7,8 +7,7 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminProductsComponent } from './components/admin-products/admin-products.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { DashboardComponent } from 'admin/components/dashboard/dashboard.component';
-
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const adminRoutes: Routes = [
   { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard, AdminAuthGuard] },

@@ -3,7 +3,7 @@
         <h5 class="card-title">Order Summary</h5>
         <p class="card-text">You have {{ cart.totalItemsCount }} items in your shopping cart.</p>
         <ul class="list-group list-group-flush">
-            <li *ngFor="let item of cart.items" class="list-group-item">
+            <li *ngFor="let item of cart.itemsArr" class="list-group-item">
                 {{ item.quantity }} x {{ item.title }}
                 <div class="float-right">{{ item.totalPrice | currency:'INR':true }}</div>
             </li>

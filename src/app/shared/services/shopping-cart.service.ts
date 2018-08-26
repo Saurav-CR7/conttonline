@@ -14,20 +14,20 @@ export class ShoppingCartService {
   async getCart(): Promise<Observable<ShoppingCart>> {
     let cartId = await this.getOrCreateCartId();
     return this.db.object('/shopping-carts/' + cartId)
-      .map(x => new ShoppingCart(x.items));
+      .map(x => new ShoppingCart(x));
   }
 
-  async addToCart(product: Product) {
-    this.updateItem(product, 1);
+  async addToCart(product: Product, size: string) {
+    this.updateItem(product, 1, size);
   }
 
-  async removeFromCart(product: Product) {
-    this.updateItem(product, -1);
+  async removeFromCart(product: Product, size: string) {
+    this.updateItem(product, -1, size);
   }
 
   async clearCart() {
     const cartId = await this.getOrCreateCartId();
-    this.db.object('shopping-carts/' + cartId + '/items').remove();
+    this.db.object('shopping-carts/' + cartId + '/').remove();
 
   }
 
@@ -37,8 +37,8 @@ export class ShoppingCartService {
     });
   }
 
-  private getItem(cartId: string, productId: string) {
-    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
+  private getItem(cartId: string, productId: string, size: string) {
+    return this.db.object('/shopping-carts/' + cartId + '/' + size + '/' + productId);
   }
 
   private async getOrCreateCartId(): Promise<string> {
@@ -51,9 +51,9 @@ export class ShoppingCartService {
     return result.key;
   }
 
-  private async updateItem(product: Product, change: number) {
+  private async updateItem(product: Product, change: number, size: string) {
     const cartId = await this.getOrCreateCartId();
-    const item$ = this.getItem(cartId, product.$key);
+    const item$ = this.getItem(cartId, product.$key, size);
     item$.take(1).subscribe(item => {
       let quantity = (item.quantity || 0) + change;
 
@@ -61,9 +61,11 @@ export class ShoppingCartService {
         item$.remove();
       } else {
         item$.update({
+          brand: product.brand,
           title: product.title,
           coverUrl: product.coverUrl,
           price: product.price,
+          size: size,
           quantity: quantity
         });
       }

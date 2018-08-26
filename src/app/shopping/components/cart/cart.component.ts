@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class CartComponent implements OnInit {
 
   cart$;
+  cart;
 
   constructor(private cartService: ShoppingCartService) { }
 

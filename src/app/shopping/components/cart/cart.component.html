@@ -1,23 +1,26 @@
 <h1>Shopping Cart</h1>
 <div class="row col-10" *ngIf="cart$ | async as cart">
     <p>You have {{ cart.totalItemsCount }} items in your shopping cart.
-        <button *ngIf="cart.items.length" (click)="clearCart()" class="btn btn-light btn-sm">Clear Shopping Cart</button>
+        <button *ngIf="cart.itemsArr.length" (click)="clearCart()" class="btn btn-light btn-sm">Clear Shopping Cart</button>
     </p>
-    <table class="table">
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th></th>
                 <th>Product</th>
+                <th style="width: 100px;">Size</th>
                 <th class="text-center" style="width: 230px;">Quantity</th>
-                <th class="text-right" style="width: 200px;">Price</th>
+                <th class="text-right" style="width: 100px;">Price</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of cart.items">
+
+            <tr *ngFor="let item of cart.itemsArr">
                 <td>
                     <div [style.backgroundImage]="'url(' + item.coverUrl.url + ')'" class="thumbnail"></div>
                 </td>
-                <td>{{ item.title }}</td>
+                <td><span>{{ item.brand }}</span>&nbsp;{{ item.title }}</td>
+                <td>{{ item.size }}</td>
                 <td>
                     <app-product-quantity [product]="item" [shoppingCart]="cart"></app-product-quantity>
                 </td>
@@ -29,10 +32,11 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th class="text-right">{{ cart.totalPrice | currency:'INR':true}}</th>
+                <th></th>
+                <th class="text-right" *ngIf="cart.totalPrice > 0">{{ cart.totalPrice | currency:'INR':true}}</th>
             </tr>
         </tfoot>
     </table>
 
-    <a *ngIf="cart.items.length" routerLink="/checkout" class="btn btn-primary btn-sm">Checkout</a>
+    <a *ngIf="cart.itemsArr.length" routerLink="/checkout" class="btn btn-primary btn-sm">Checkout</a>
 </div>

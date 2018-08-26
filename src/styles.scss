@@ -1,22 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 
-$primary-color: #007bff;
-$primary-color-hover: #61aeff;
+@import "~theme.scss";
 body {
     padding-top: 90px;
+    background-color: $secondary-color;
 }
 
 .fas {
-    color: #888888;
+    color: $nav-font-color;
 }
 
-.navbar {
-    border-bottom: 3px solid #e7e7e7;
+nav {
+    background-color: $primary-color;
+    border-bottom: 3px solid $primary-color-dark;
 }
 
-.navbar-light .navbar-brand:focus,
-.navbar-light .navbar-brand:hover {
-    color: $primary-color-hover;
+.navbar-dark .navbar-brand:focus,
+.navbar-dark .navbar-brand:hover {
+    color: $primary-color-dark;
 }
 
 .list-group-item.active {
@@ -30,8 +31,8 @@ body {
 }
 
 .btn-primary:hover {
-    background-color: $primary-color-hover;
-    border-color: $primary-color-hover;
+    background-color: $primary-color-dark;
+    border-color: $primary-color-dark;
 }
 
 .btn-primary.disabled,

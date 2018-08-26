@@ -3,11 +3,6 @@ export interface Product {
     brand: string;
     title: string;
     price: number;
-    description: string;
-    category: string;
-    for: string;
-    subCategory: string;
-    imageUrl: {};
     coverUrl: {};
-    sizes: {};
+    size: string;
 }

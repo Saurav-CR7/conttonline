@@ -1,3 +1,7 @@
 .card-img-top {
     padding: 10px;
 }
+
+label {
+    font-weight: 500;
+}

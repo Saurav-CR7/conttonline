@@ -1,5 +1,18 @@
+@import "~theme.scss";
 .dropdown-toggle {
     cursor: pointer;
+}
+
+.navbar .dropdown-menu a {
+    margin-bottom: -12px;
+}
+
+.dropdown-item {
+    background: transparent !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: $nav-font-color;
 }
 
 .logo {
@@ -8,48 +21,23 @@
 }
 
 .nav-link {
-    padding-bottom: 0;
-    margin-bottom: -0.5rem;
-}
-
-@media screen and (max-width: 576px) {
-    .logo {
-        width: 18vw;
-    }
-    .hide-items {
-        display: none;
-    }
-    .menu-items {
-        padding-top: 10px;
-        font-weight: bold;
-        color: #818181e7;
-    }
-    .bg-light {
-        background-color: #F8F8F8 !important;
-        border-color: #E7E7E7;
-    }
-}
-
-@media screen and (min-width: 576px) {
-    .mid-icon {
-        border: 1px solid #ddd;
-        border-top: none;
-        border-bottom: none;
-    }
-    .hide-for-big {
-        display: none;
-    }
+    //padding-bottom: 0;
+    //margin-bottom: -0.5rem;
+    margin-right: 10px;
+    padding-bottom: 14px;
+    margin-bottom: -1.7rem;
 }
 
 .searchBox {
     padding: 6px;
     margin-top: 8px;
     font-size: 17px;
-    border: 1px solid #ccc;
+    border: 1px solid $nav-font-color;
     border-right: none;
     width: 25vw;
     background: #eeeeee;
     height: 3vw;
+    color: $nav-font-color;
 }
 
 .searchBtn {
@@ -59,7 +47,7 @@
     margin-right: 16px;
     background: #eeeeee;
     font-size: 17px;
-    border: 1px solid #ccc;
+    border: 1px solid $nav-font-color;
     border-left: none;
     cursor: pointer;
     height: 3vw;
@@ -70,29 +58,55 @@
     outline: none;
 }
 
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 .searchBtn:active {
     outline: none;
     background: #ccc;
-}
-
-.searchBox:focus {
-    background: white;
 }
 
 .dropdown:hover>.dropdown-menu {
     display: block;
 }
 
+.showBarRed {
+    border-bottom: 3px solid red;
+    padding-bottom: 10px;
+}
 
-/*.dropdown>.dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-
-
-/*pointer-events: none;
-}*/
+.showBarPink {
+    border-bottom: 3px solid #ff38b9;
+    padding-bottom: 10px;
+}
 
 #userDropdown .dropdown-menu {
-    margin-top: 1.8vw;
+    margin-top: 2.1vw;
     padding: 1vw 0px;
     box-shadow: 0 0 3px 2px rgb(230, 230, 230);
+}
+
+.leftGap {
+    margin-left: 11%;
+}
+
+.categoryHeaderMen {
+    font-size: 15px;
+    color: #e80000;
+}
+
+.categoryHeaderWomen {
+    font-size: 15px;
+    color: #ff38b9;
+}
+
+.dropdown-header {
+    padding-left: 0;
+}
+
+.dropdown-menu {
+    background-color: $secondary-color-light;
 }

@@ -4,6 +4,7 @@
         <tr>
             <th>Customer</th>
             <th>Date</th>
+            <th>Total Value</th>
             <th></th>
         </tr>
     </thead>
@@ -11,6 +12,7 @@
         <tr *ngFor="let order of orders$ | async">
             <td>{{ order.shipping.name }}</td>
             <td>{{ order.datePlaced | date}}</td>
+            <td>{{ order.totalPrice | currency:'INR':true }}</td>
             <td>
                 <a routerLink="/">View</a>
             </td>

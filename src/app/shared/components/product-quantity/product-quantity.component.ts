@@ -9,16 +9,16 @@ import { ShoppingCartService } from 'shared/services/shopping-cart.service';
   styleUrls: ['./product-quantity.component.css']
 })
 export class ProductQuantityComponent {
-  @Input('product') product: Product;
+  @Input('product') product: any;
   @Input('shoppingCart') shoppingCart: ShoppingCart;
 
   constructor(private cartService: ShoppingCartService) { }
 
-  addToCart() {
-    this.cartService.addToCart(this.product);
+  addToCart(size) {
+    this.cartService.addToCart(this.product, size);
   }
 
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product);
+  removeFromCart(size) {
+    this.cartService.removeFromCart(this.product, size);
   }
 }

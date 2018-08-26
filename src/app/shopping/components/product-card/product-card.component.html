@@ -1,13 +1,29 @@
-<div class="card">
-    <img class="card-img-top" [src]="product.coverUrl.url" style="height: 12rem;">
-    <div class="card-body">
-        <h6 class="card-title" style="padding-top: 0px;">{{ product.title }}</h6>
-        <p class="card-text" style="font-size: 80%">{{ product.price | currency: 'INR' : true}}</p>
+<div class="card" (mouseover)="showAction()" (mouseleave)="hideAction()">
+    <div style="width: 100%; position: relative;">
+        <img class="card-img-top" [src]="product.coverUrl.url" style="height: 14rem;">
+        <div id="sizeSelect{{productId}}" class="size-select hideForSmall">
+            <div class="selectSizeHeader" id="sizeHeader{{productId}}" style="visibility: hidden">
+                <span style="float: left;">Select Size</span>
+                <a (click)="closeSizeSelector()" style="float: right;">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+            <div class="buttonContainer" id="sizeContainer{{productId}}" style="display: none;">
+                <button *ngFor="let size of sizes" class="sizeButton" (click)="addToCart(size)">{{ size }}</button>
+            </div>
+        </div>
+        <div class="card-body text-center">
+            <div id="title{{productId}}" style="height: 3rem;">
+                <h6 class="card-title" style="padding-top: 0px; font-weight: 700">{{ product.brand }}</h6>
+                <p style="margin-top: -5%; font-size: 70%" id="productTitle">{{ product.title }}</p>
+            </div>
+
+            <div id="add{{productId}}" class="addSection no-gutters">
+                <div class="product-actions action-save">Save</div>
+                <div class="product-actions action-bag hideForSmall" (click)="openSizeSelector()">Add To Bag</div>
+                <div class="product-actions action-bag hideForBig" (click)="addToCart('S')">Add To Bag</div>
+            </div>
+            <p class="card-text" style="font-size: 80%;">{{ product.price | currency: 'INR' : true}}</p>
+            <p id="size{{productId}}" class="size-text">Sizes: S, M, L, XL</p>
+        </div>
     </div>
-    <div class="card-footer" *ngIf="shoppingCart">
-        <button *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity" (click)="addToCart()" class="btn btn-secondary btn-block">Add to Cart</button>
-        <ng-template #updateQuantity>
-            <app-product-quantity [product]="product" [shoppingCart]="shoppingCart"></app-product-quantity>
-        </ng-template>
-    </div>
-</div>

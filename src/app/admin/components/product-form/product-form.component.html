@@ -2,6 +2,13 @@
     <div class="col-6">
         <form #f="ngForm" (ngSubmit)="save()">
             <div class=" form-group ">
+                <label for="brand">Brand Name</label>
+                <input #brand="ngModel" [(ngModel)]="product.brand" name="brand" id="brand" type="text" class="form-control" required>
+                <div class="alert alert-danger" *ngIf="brand.touched && brand.invalid">
+                    Brand name is required.
+                </div>
+            </div>
+            <div class=" form-group ">
                 <label for="title">Title</label>
                 <input #title="ngModel" [(ngModel)]="product.title" name="title" id="title" type="text" class="form-control" required>
                 <div class="alert alert-danger" *ngIf="title.touched && title.invalid">
@@ -55,14 +62,17 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea #description="ngModel" [(ngModel)]="product.description" name="description" id="description" rows="10" class="form-control">{{ product.description }}</textarea>
+                <textarea #description="ngModel" [(ngModel)]="product.description" name="description" id="description" rows="10" class="form-control" required>{{ product.description }}</textarea>
+                <div class="alert alert-danger" *ngIf="description.touched && description.invalid">
+                    Description is required.
+                </div>
             </div>
 
             <div class="form-group ">
                 <label for="coverImage">Upload Cover Image</label>
                 <input type="file" #coverImage (change)="photoSelected($event, 'coverImage')" class="form-control-file" accept="image/*" name="coverImage" id="coverImage" required>
                 <div class="alert alert-danger" *ngIf="coverImage.touched && coverImage.invalid">
-                    One image must be selected.
+                    Cover image is required.
                 </div>
             </div>
 

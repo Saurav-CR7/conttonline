@@ -3,7 +3,7 @@ import { CategoryService } from 'shared/services/category.service';
 import { Observable } from 'rxjs/Observable';
 import { AppUser } from 'shared/models/app-user';
 import { AuthService } from 'shared/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ShoppingCartService } from 'shared/services/shopping-cart.service';
 import { ShoppingCart } from 'shared/models/shoppingCart';
 import { Subject } from 'rxjs/Subject';
@@ -16,7 +16,6 @@ import { Subject } from 'rxjs/Subject';
 })
 export class NavbarComponent implements OnInit {
 
-  isNavbarCollapsed = true;
   appUser: AppUser;
   cart$: Observable<ShoppingCart>;
   products;
@@ -47,7 +46,6 @@ export class NavbarComponent implements OnInit {
     category$.subscribe(snap => {
       this.men = snap[0].categories;
       this.women = snap[1].categories;
-      console.log(this.women);
     });
   }
 
@@ -59,5 +57,24 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.auth.logout();
+  }
+
+
+  addClass(event) {
+    let id = event.target.id;
+    if (id === 'menDrop') {
+      document.getElementById(id).classList.add('showBarRed');
+    } else {
+      document.getElementById(id).classList.add('showBarPink');
+    }
+  }
+
+  removeClass(event) {
+    let id = event.target.id;
+    if (id === 'menDrop') {
+      document.getElementById(id).classList.remove('showBarRed');
+    } else {
+      document.getElementById(id).classList.remove('showBarPink');
+    }
   }
 }

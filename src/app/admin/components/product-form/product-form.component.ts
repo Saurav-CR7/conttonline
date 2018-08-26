@@ -16,6 +16,7 @@ export class ProductFormComponent {
   subCategory$;
   selectedFor;
   product = {
+    'brand': '',
     'title': '',
     'price': '',
     'description': '',
